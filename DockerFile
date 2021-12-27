@@ -5,8 +5,5 @@ COPY package.json /MyApi
 COPY routes/datos.js /MyApi
 WORKDIR /MyApi
 RUN npm install
-RUN npm install express
-RUN npm install morgan
-RUN npm installa node-fetch@2
 EXPOSE 3000
 CMD [ "node", "index.js" ]
