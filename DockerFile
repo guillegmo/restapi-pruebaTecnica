@@ -1,9 +1,8 @@
 FROM node:16
 RUN mkdir /MyApi
-COPY index.js /MyApi
-COPY package.json /MyApi
-COPY routes/datos.js /MyApi
 WORKDIR /MyApi
+COPY package.json /MyApi
 RUN npm install
+COPY . /MyApi
 EXPOSE 3000
-CMD [ "node", "index.js" ]
+CMD [ "npm", "start" ]
