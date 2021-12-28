@@ -17,16 +17,25 @@ async function getEntitiesByRange({startId, endId}){
     return data;
 }
 
-
 router.get('/datos/:rango', (req, res) => {
 
     const rango = req.params.rango.split("-");
     rIni = parseInt(rango[0]);
     rFin = parseInt(rango[1]);
+    if(rIni > rFin) {
+      return res.status(400).send("Codigo 400: Error en validación datos de entrada");
+    }
+    if(rIni < 1 || rFin > 20){
+      return res.status(404).send("Codigo 404: Error no se encuentra para rango especificado");
+    }
+   
     getEntitiesByRange({ startId: rIni, endId: rFin }).then((result) => {
       const datos = [];
       for (i = 0; i < result.length; i++) {
         datos.push(result[i].data);
+        if(result[i].code === "F133"){
+          return res.status(400).send("Codigo 400: Error en validación datos de entrada");
+        }
       }
       ordenar(datos);
       console.log(datos);
